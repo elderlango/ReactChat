@@ -3,6 +3,7 @@ import { BrowserRouter } from "react-router-dom";
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import LoginPage from "../LoginPage";
 import { useAuthStore } from "../../store/useAuthStore";
+// commit #27 - Tony
 
 // Mock the auth store
 vi.mock("../../store/useAuthStore", () => ({
