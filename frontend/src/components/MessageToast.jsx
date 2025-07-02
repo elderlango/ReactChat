@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import useChatStore from '../store/useChatStore';
+import React, { useEffect, useState } from "react";
+import useChatStore from "../store/useChatStore";
 
 const MessageToast = () => {
   const { notifications, removeNotification, theme } = useChatStore();
@@ -11,12 +11,12 @@ const MessageToast = () => {
 
   const handleClose = (id) => {
     // Add exit animation class
-    setVisibleNotifications(prev => 
-      prev.map(notif => 
+    setVisibleNotifications((prev) =>
+      prev.map((notif) =>
         notif.id === id ? { ...notif, isExiting: true } : notif
       )
     );
-    
+
     // Remove after animation
     setTimeout(() => {
       removeNotification(id);
@@ -24,58 +24,69 @@ const MessageToast = () => {
   };
 
   const getToastIcon = (message) => {
-    if (message.includes('call')) return '📞';
-    if (message.includes('video')) return '📹';
-    if (message.includes('recording') || message.includes('voice')) return '🎤';
-    if (message.includes('upload') || message.includes('file')) return '📎';
-    if (message.includes('online') || message.includes('offline') || message.includes('away')) return '🟢';
-    if (message.includes('error') || message.includes('failed')) return '❌';
-    if (message.includes('success') || message.includes('sent')) return '✅';
-    return '💬';
+    if (message.includes("call")) return "📞";
+    if (message.includes("video")) return "📹";
+    if (message.includes("recording") || message.includes("voice")) return "🎤";
+    if (message.includes("upload") || message.includes("file")) return "📎";
+    if (
+      message.includes("online") ||
+      message.includes("offline") ||
+      message.includes("away")
+    )
+      return "🟢";
+    if (message.includes("error") || message.includes("failed")) return "❌";
+    if (message.includes("success") || message.includes("sent")) return "✅";
+    return "💬";
   };
 
   const getToastType = (message) => {
-    if (message.includes('error') || message.includes('failed')) return 'error';
-    if (message.includes('success') || message.includes('sent') || message.includes('recorded')) return 'success';
-    if (message.includes('warning') || message.includes('soon')) return 'warning';
-    return 'info';
+    if (message.includes("error") || message.includes("failed")) return "error";
+    if (
+      message.includes("success") ||
+      message.includes("sent") ||
+      message.includes("recorded")
+    )
+      return "success";
+    if (message.includes("warning") || message.includes("soon"))
+      return "warning";
+    return "info";
   };
 
   const getToastColors = (type) => {
     const colors = {
       error: {
-        bg: theme === 'dark' ? '#dc3545' : '#f8d7da',
-        border: theme === 'dark' ? '#dc3545' : '#f5c6cb',
-        text: theme === 'dark' ? '#ffffff' : '#721c24',
-        icon: '#dc3545'
+        bg: theme === "dark" ? "#dc3545" : "#f8d7da",
+        border: theme === "dark" ? "#dc3545" : "#f5c6cb",
+        text: theme === "dark" ? "#ffffff" : "#721c24",
+        icon: "#dc3545",
       },
       success: {
-        bg: theme === 'dark' ? '#28a745' : '#d4edda',
-        border: theme === 'dark' ? '#28a745' : '#c3e6cb',
-        text: theme === 'dark' ? '#ffffff' : '#155724',
-        icon: '#28a745'
+        bg: theme === "dark" ? "#28a745" : "#d4edda",
+        border: theme === "dark" ? "#28a745" : "#c3e6cb",
+        text: theme === "dark" ? "#ffffff" : "#155724",
+        icon: "#28a745",
       },
       warning: {
-        bg: theme === 'dark' ? '#ffc107' : '#fff3cd',
-        border: theme === 'dark' ? '#ffc107' : '#ffeaa7',
-        text: theme === 'dark' ? '#000000' : '#856404',
-        icon: '#ffc107'
+        bg: theme === "dark" ? "#ffc107" : "#fff3cd",
+        border: theme === "dark" ? "#ffc107" : "#ffeaa7",
+        text: theme === "dark" ? "#000000" : "#856404",
+        icon: "#ffc107",
       },
       info: {
-        bg: theme === 'dark' ? '#17a2b8' : '#d1ecf1',
-        border: theme === 'dark' ? '#17a2b8' : '#bee5eb',
-        text: theme === 'dark' ? '#ffffff' : '#0c5460',
-        icon: '#17a2b8'
-      }
+        bg: theme === "dark" ? "#17a2b8" : "#d1ecf1",
+        border: theme === "dark" ? "#17a2b8" : "#bee5eb",
+        text: theme === "dark" ? "#ffffff" : "#0c5460",
+        icon: "#17a2b8",
+      },
     };
     return colors[type] || colors.info;
   };
 
   const formatTime = (timestamp) => {
-    return new Intl.DateTimeFormat('en-US', {
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit'
+    return new Intl.DateTimeFormat("en-US", {
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
     }).format(new Date(timestamp));
   };
 
@@ -116,13 +127,18 @@ const MessageToast = () => {
         }
 
         .toast::before {
-          content: '';
+          content: "";
           position: absolute;
           top: 0;
           left: 0;
           right: 0;
           height: 3px;
-          background: linear-gradient(90deg, transparent, currentColor, transparent);
+          background: linear-gradient(
+            90deg,
+            transparent,
+            currentColor,
+            transparent
+          );
           animation: shimmer 2s infinite;
         }
 
@@ -149,8 +165,12 @@ const MessageToast = () => {
         }
 
         @keyframes shimmer {
-          0% { transform: translateX(-100%); }
-          100% { transform: translateX(100%); }
+          0% {
+            transform: translateX(-100%);
+          }
+          100% {
+            transform: translateX(100%);
+          }
         }
 
         .toast-icon {
@@ -161,7 +181,11 @@ const MessageToast = () => {
         }
 
         @keyframes bounce {
-          0%, 20%, 50%, 80%, 100% {
+          0%,
+          20%,
+          50%,
+          80%,
+          100% {
             transform: translateY(0);
           }
           40% {
@@ -226,8 +250,12 @@ const MessageToast = () => {
         }
 
         @keyframes progress {
-          from { width: 100%; }
-          to { width: 0%; }
+          from {
+            width: 100%;
+          }
+          to {
+            width: 0%;
+          }
         }
 
         .toast-actions {
@@ -259,15 +287,15 @@ const MessageToast = () => {
             left: 10px;
             max-width: none;
           }
-          
+
           .toast {
             padding: 0.875rem 1rem;
           }
-          
+
           .toast-icon {
             font-size: 1.3rem;
           }
-          
+
           .toast-message {
             font-size: 0.9rem;
           }
@@ -279,7 +307,7 @@ const MessageToast = () => {
             right: 5px;
             left: 5px;
           }
-          
+
           .toast {
             padding: 0.75rem 0.875rem;
           }
@@ -290,34 +318,35 @@ const MessageToast = () => {
         const toastType = getToastType(notification.message);
         const colors = getToastColors(toastType);
         const icon = getToastIcon(notification.message);
-        
+
         return (
           <div
             key={notification.id}
-            className={`toast ${notification.isExiting ? 'exiting' : ''}`}
+            className={`toast ${notification.isExiting ? "exiting" : ""}`}
             style={{
               background: colors.bg,
               borderColor: colors.border,
-              color: colors.text
+              color: colors.text,
             }}
           >
             <div className="toast-icon" style={{ color: colors.icon }}>
               {icon}
             </div>
-            
+
             <div className="toast-content">
               <p className="toast-message">{notification.message}</p>
               <p className="toast-time">{formatTime(notification.timestamp)}</p>
-              
-              {(notification.message.includes('call') || notification.message.includes('recording')) && (
+
+              {(notification.message.includes("call") ||
+                notification.message.includes("recording")) && (
                 <div className="toast-actions">
                   <button className="toast-action">Accept</button>
                   <button className="toast-action">Decline</button>
                 </div>
               )}
             </div>
-            
-            <button 
+
+            <button
               className="toast-close"
               onClick={() => handleClose(notification.id)}
               title="Close notification"
@@ -325,11 +354,8 @@ const MessageToast = () => {
             >
               ×
             </button>
-            
-            <div 
-              className="progress-bar"
-              style={{ color: colors.icon }}
-            />
+
+            <div className="progress-bar" style={{ color: colors.icon }} />
           </div>
         );
       })}
