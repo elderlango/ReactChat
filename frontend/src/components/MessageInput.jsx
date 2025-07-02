@@ -1,5 +1,5 @@
-import React, { useState, useRef, useEffect } from 'react';
-import useChatStore from '../store/useChatStore';
+import React, { useState, useRef, useEffect } from "react";
+import useChatStore from "../store/useChatStore";
 
 const MessageInput = () => {
   const {
@@ -9,30 +9,103 @@ const MessageInput = () => {
     isTyping,
     addTypingUser,
     theme,
-    addNotification
+    addNotification,
   } = useChatStore();
 
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState("");
   const [showEmojis, setShowEmojis] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
   const textareaRef = useRef(null);
   const typingTimeoutRef = useRef(null);
 
   const emojis = [
-    '😀', '😃', '😄', '😁', '😆', '😅', '😂', '🤣', '😊', '😇',
-    '🙂', '🙃', '😉', '😌', '😍', '🥰', '😘', '😗', '😙', '😚',
-    '😋', '😛', '😝', '😜', '🤪', '🤨', '🧐', '🤓', '😎', '🤩',
-    '🥳', '😏', '😒', '😞', '😔', '😟', '😕', '🙁', '☹️', '😣',
-    '👍', '👎', '👌', '✌️', '🤞', '🤟', '🤘', '🤙', '👈', '👉',
-    '👆', '🖕', '👇', '☝️', '👋', '🤚', '🖐️', '✋', '🖖', '👏',
-    '❤️', '🧡', '💛', '💚', '💙', '💜', '🖤', '🤍', '🤎', '💕',
-    '💖', '💗', '💘', '💝', '💞', '💟', '💔', '❣️', '💋', '💯'
+    "😀",
+    "😃",
+    "😄",
+    "😁",
+    "😆",
+    "😅",
+    "😂",
+    "🤣",
+    "😊",
+    "😇",
+    "🙂",
+    "🙃",
+    "😉",
+    "😌",
+    "😍",
+    "🥰",
+    "😘",
+    "😗",
+    "😙",
+    "😚",
+    "😋",
+    "😛",
+    "😝",
+    "😜",
+    "🤪",
+    "🤨",
+    "🧐",
+    "🤓",
+    "😎",
+    "🤩",
+    "🥳",
+    "😏",
+    "😒",
+    "😞",
+    "😔",
+    "😟",
+    "😕",
+    "🙁",
+    "☹️",
+    "😣",
+    "👍",
+    "👎",
+    "👌",
+    "✌️",
+    "🤞",
+    "🤟",
+    "🤘",
+    "🤙",
+    "👈",
+    "👉",
+    "👆",
+    "🖕",
+    "👇",
+    "☝️",
+    "👋",
+    "🤚",
+    "🖐️",
+    "✋",
+    "🖖",
+    "👏",
+    "❤️",
+    "🧡",
+    "💛",
+    "💚",
+    "💙",
+    "💜",
+    "🖤",
+    "🤍",
+    "🤎",
+    "💕",
+    "💖",
+    "💗",
+    "💘",
+    "💝",
+    "💞",
+    "💟",
+    "💔",
+    "❣️",
+    "💋",
+    "💯",
   ];
 
   useEffect(() => {
     if (textareaRef.current) {
-      textareaRef.current.style.height = 'auto';
-      textareaRef.current.style.height = textareaRef.current.scrollHeight + 'px';
+      textareaRef.current.style.height = "auto";
+      textareaRef.current.style.height =
+        textareaRef.current.scrollHeight + "px";
     }
   }, [message]);
 
@@ -65,7 +138,7 @@ const MessageInput = () => {
   };
 
   const handleKeyPress = (e) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
+    if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       handleSendMessage();
     }
@@ -74,7 +147,7 @@ const MessageInput = () => {
   const handleSendMessage = () => {
     if (message.trim() && selectedUser) {
       sendMessage(message);
-      setMessage('');
+      setMessage("");
       setTyping(false);
       if (typingTimeoutRef.current) {
         clearTimeout(typingTimeoutRef.current);
@@ -84,26 +157,26 @@ const MessageInput = () => {
   };
 
   const handleEmojiSelect = (emoji) => {
-    setMessage(prev => prev + emoji);
+    setMessage((prev) => prev + emoji);
     setShowEmojis(false);
     textareaRef.current?.focus();
   };
 
   const handleFileUpload = () => {
-    addNotification('File upload feature coming soon!');
+    addNotification("File upload feature coming soon!");
   };
 
   const handleImageUpload = () => {
-    addNotification('Image upload feature coming soon!');
+    addNotification("Image upload feature coming soon!");
   };
 
   const toggleRecording = () => {
     if (isRecording) {
       setIsRecording(false);
-      addNotification('Voice message recorded!');
+      addNotification("Voice message recorded!");
     } else {
       setIsRecording(true);
-      addNotification('Recording voice message...');
+      addNotification("Recording voice message...");
       // Auto stop after 30 seconds
       setTimeout(() => {
         setIsRecording(false);
@@ -111,9 +184,7 @@ const MessageInput = () => {
     }
   };
 
-  const quickResponses = [
-    '👍', '❤️', '😂', '😮', '😢', '👏'
-  ];
+  const quickResponses = ["👍", "❤️", "😂", "😮", "😢", "👏"];
 
   if (!selectedUser) return null;
 
@@ -122,8 +193,8 @@ const MessageInput = () => {
       <style jsx>{`
         .message-input-container {
           padding: 1rem 1.5rem;
-          background: ${theme === 'dark' ? '#2c2c2c' : '#ffffff'};
-          border-top: 1px solid ${theme === 'dark' ? '#404040' : '#e9ecef'};
+          background: ${theme === "dark" ? "#2c2c2c" : "#ffffff"};
+          border-top: 1px solid ${theme === "dark" ? "#404040" : "#e9ecef"};
         }
 
         .quick-responses {
@@ -135,7 +206,7 @@ const MessageInput = () => {
         }
 
         .quick-response {
-          background: ${theme === 'dark' ? '#404040' : '#f8f9fa'};
+          background: ${theme === "dark" ? "#404040" : "#f8f9fa"};
           border: none;
           border-radius: 20px;
           padding: 0.5rem 0.75rem;
@@ -146,7 +217,7 @@ const MessageInput = () => {
         }
 
         .quick-response:hover {
-          background: ${theme === 'dark' ? '#555555' : '#e9ecef'};
+          background: ${theme === "dark" ? "#555555" : "#e9ecef"};
           transform: scale(1.1);
         }
 
@@ -154,7 +225,7 @@ const MessageInput = () => {
           display: flex;
           align-items: flex-end;
           gap: 0.75rem;
-          background: ${theme === 'dark' ? '#404040' : '#f8f9fa'};
+          background: ${theme === "dark" ? "#404040" : "#f8f9fa"};
           border-radius: 24px;
           padding: 0.75rem 1rem;
           border: 2px solid transparent;
@@ -184,11 +255,11 @@ const MessageInput = () => {
           align-items: center;
           justify-content: center;
           transition: all 0.2s ease;
-          color: ${theme === 'dark' ? '#b8b8b8' : '#6c757d'};
+          color: ${theme === "dark" ? "#b8b8b8" : "#6c757d"};
         }
 
         .action-button:hover {
-          background: ${theme === 'dark' ? '#555555' : '#e9ecef'};
+          background: ${theme === "dark" ? "#555555" : "#e9ecef"};
           transform: scale(1.1);
         }
 
@@ -204,9 +275,15 @@ const MessageInput = () => {
         }
 
         @keyframes pulse {
-          0% { transform: scale(1); }
-          50% { transform: scale(1.1); }
-          100% { transform: scale(1); }
+          0% {
+            transform: scale(1);
+          }
+          50% {
+            transform: scale(1.1);
+          }
+          100% {
+            transform: scale(1);
+          }
         }
 
         .message-textarea {
@@ -214,7 +291,7 @@ const MessageInput = () => {
           border: none;
           outline: none;
           background: transparent;
-          color: ${theme === 'dark' ? '#ffffff' : '#212529'};
+          color: ${theme === "dark" ? "#ffffff" : "#212529"};
           font-size: 1rem;
           line-height: 1.4;
           resize: none;
@@ -224,7 +301,7 @@ const MessageInput = () => {
         }
 
         .message-textarea::placeholder {
-          color: ${theme === 'dark' ? '#888888' : '#6c757d'};
+          color: ${theme === "dark" ? "#888888" : "#6c757d"};
         }
 
         .send-button {
@@ -249,7 +326,7 @@ const MessageInput = () => {
         }
 
         .send-button:disabled {
-          background: ${theme === 'dark' ? '#555555' : '#6c757d'};
+          background: ${theme === "dark" ? "#555555" : "#6c757d"};
           cursor: not-allowed;
           transform: none;
         }
@@ -258,11 +335,11 @@ const MessageInput = () => {
           position: absolute;
           bottom: 100%;
           left: 0;
-          background: ${theme === 'dark' ? '#333333' : '#ffffff'};
-          border: 1px solid ${theme === 'dark' ? '#505050' : '#dee2e6'};
+          background: ${theme === "dark" ? "#333333" : "#ffffff"};
+          border: 1px solid ${theme === "dark" ? "#505050" : "#dee2e6"};
           border-radius: 12px;
           padding: 1rem;
-          box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
           display: grid;
           grid-template-columns: repeat(8, 1fr);
           gap: 0.5rem;
@@ -295,7 +372,7 @@ const MessageInput = () => {
         }
 
         .emoji-button:hover {
-          background: ${theme === 'dark' ? '#404040' : '#f8f9fa'};
+          background: ${theme === "dark" ? "#404040" : "#f8f9fa"};
         }
 
         .emoji-picker::-webkit-scrollbar {
@@ -303,17 +380,17 @@ const MessageInput = () => {
         }
 
         .emoji-picker::-webkit-scrollbar-track {
-          background: ${theme === 'dark' ? '#333' : '#f1f1f1'};
+          background: ${theme === "dark" ? "#333" : "#f1f1f1"};
         }
 
         .emoji-picker::-webkit-scrollbar-thumb {
-          background: ${theme === 'dark' ? '#555' : '#c1c1c1'};
+          background: ${theme === "dark" ? "#555" : "#c1c1c1"};
           border-radius: 3px;
         }
 
         .typing-indicator-self {
           font-size: 0.8rem;
-          color: ${theme === 'dark' ? '#888888' : '#6c757d'};
+          color: ${theme === "dark" ? "#888888" : "#6c757d"};
           margin-bottom: 0.5rem;
           padding-left: 1rem;
         }
@@ -322,27 +399,27 @@ const MessageInput = () => {
           .message-input-container {
             padding: 0.75rem 1rem;
           }
-          
+
           .quick-responses {
             margin-bottom: 0.5rem;
           }
-          
+
           .input-wrapper {
             padding: 0.5rem 0.75rem;
           }
-          
+
           .action-button {
             width: 28px;
             height: 28px;
             font-size: 1.1rem;
           }
-          
+
           .send-button {
             width: 36px;
             height: 36px;
             font-size: 1.1rem;
           }
-          
+
           .emoji-picker {
             max-width: 280px;
             grid-template-columns: repeat(6, 1fr);
@@ -371,31 +448,31 @@ const MessageInput = () => {
 
       <div className="input-wrapper">
         <div className="input-actions-left">
-          <button 
+          <button
             className="action-button"
             onClick={handleFileUpload}
             title="Attach file"
           >
             📎
           </button>
-          
-          <button 
+
+          <button
             className="action-button"
             onClick={handleImageUpload}
             title="Upload image"
           >
             🖼️
           </button>
-          
-          <div style={{ position: 'relative' }}>
-            <button 
-              className={`action-button ${showEmojis ? 'active' : ''}`}
+
+          <div style={{ position: "relative" }}>
+            <button
+              className={`action-button ${showEmojis ? "active" : ""}`}
               onClick={() => setShowEmojis(!showEmojis)}
               title="Insert emoji"
             >
               😊
             </button>
-            
+
             {showEmojis && (
               <div className="emoji-picker">
                 {emojis.map((emoji, index) => (
@@ -423,7 +500,7 @@ const MessageInput = () => {
         />
 
         {message.trim() ? (
-          <button 
+          <button
             className="send-button"
             onClick={handleSendMessage}
             title="Send message"
@@ -431,10 +508,10 @@ const MessageInput = () => {
             ➤
           </button>
         ) : (
-          <button 
-            className={`action-button ${isRecording ? 'recording' : ''}`}
+          <button
+            className={`action-button ${isRecording ? "recording" : ""}`}
             onClick={toggleRecording}
-            title={isRecording ? 'Stop recording' : 'Record voice message'}
+            title={isRecording ? "Stop recording" : "Record voice message"}
           >
             🎤
           </button>
