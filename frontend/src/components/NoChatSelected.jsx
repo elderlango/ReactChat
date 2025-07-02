@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import useChatStore from '../store/useChatStore';
-import AuthImagePattern from './AuthImagePattern';
+import React, { useState, useEffect } from "react";
+import useChatStore from "../store/useChatStore";
+import AuthImagePattern from "./AuthImagePattern";
 
 const NoChatSelected = () => {
   const { users, setSelectedUser, theme, currentUser } = useChatStore();
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const [filteredUsers, setFilteredUsers] = useState(users);
-  const [selectedTab, setSelectedTab] = useState('recent');
+  const [selectedTab, setSelectedTab] = useState("recent");
 
   useEffect(() => {
-    const filtered = users.filter(user =>
+    const filtered = users.filter((user) =>
       user.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
     setFilteredUsers(filtered);
@@ -17,30 +17,38 @@ const NoChatSelected = () => {
 
   const getStatusColor = (status) => {
     switch (status) {
-      case 'online': return '#28a745';
-      case 'away': return '#ffc107';
-      case 'offline': return '#6c757d';
-      default: return '#6c757d';
+      case "online":
+        return "#28a745";
+      case "away":
+        return "#ffc107";
+      case "offline":
+        return "#6c757d";
+      default:
+        return "#6c757d";
     }
   };
 
   const getLastSeenText = (user) => {
-    if (user.status === 'online') return 'Online';
-    if (user.status === 'away') return 'Away';
+    if (user.status === "online") return "Online";
+    if (user.status === "away") return "Away";
     if (user.lastSeen) {
       const now = new Date();
       const lastSeen = new Date(user.lastSeen);
       const diffInMinutes = Math.floor((now - lastSeen) / (1000 * 60));
-      
+
       if (diffInMinutes < 60) return `${diffInMinutes}m ago`;
       if (diffInMinutes < 1440) return `${Math.floor(diffInMinutes / 60)}h ago`;
       return `${Math.floor(diffInMinutes / 1440)}d ago`;
     }
-    return 'Offline';
+    return "Offline";
   };
 
-  const recentChats = users.filter(user => user.status === 'online').slice(0, 3);
-  const suggestedUsers = users.filter(user => user.status !== 'offline').slice(0, 4);
+  const recentChats = users
+    .filter((user) => user.status === "online")
+    .slice(0, 3);
+  const suggestedUsers = users
+    .filter((user) => user.status !== "offline")
+    .slice(0, 4);
 
   const tips = [
     "💡 Use @ to mention someone in group chats",
@@ -48,7 +56,7 @@ const NoChatSelected = () => {
     "💡 Double-click on a message to reply",
     "💡 Use emojis to express yourself better",
     "💡 Voice messages are perfect for longer thoughts",
-    "💡 Share files by dragging them into the chat"
+    "💡 Share files by dragging them into the chat",
   ];
 
   const [currentTip, setCurrentTip] = useState(0);
@@ -67,19 +75,19 @@ const NoChatSelected = () => {
           display: flex;
           flex-direction: column;
           height: 100vh;
-          background: ${theme === 'dark' ? '#1a1a1a' : '#f8f9fa'};
+          background: ${theme === "dark" ? "#1a1a1a" : "#f8f9fa"};
           overflow-y: auto;
         }
 
         .header-section {
           padding: 2rem;
           text-align: center;
-          background: ${theme === 'dark' ? '#2c2c2c' : '#ffffff'};
-          border-bottom: 1px solid ${theme === 'dark' ? '#404040' : '#e9ecef'};
+          background: ${theme === "dark" ? "#2c2c2c" : "#ffffff"};
+          border-bottom: 1px solid ${theme === "dark" ? "#404040" : "#e9ecef"};
         }
 
         .welcome-message {
-          color: ${theme === 'dark' ? '#ffffff' : '#212529'};
+          color: ${theme === "dark" ? "#ffffff" : "#212529"};
           margin-bottom: 1rem;
         }
 
@@ -93,14 +101,14 @@ const NoChatSelected = () => {
         }
 
         .welcome-message p {
-          color: ${theme === 'dark' ? '#b8b8b8' : '#6c757d'};
+          color: ${theme === "dark" ? "#b8b8b8" : "#6c757d"};
           font-size: 1.1rem;
         }
 
         .search-section {
           padding: 1.5rem 2rem;
-          background: ${theme === 'dark' ? '#2c2c2c' : '#ffffff'};
-          border-bottom: 1px solid ${theme === 'dark' ? '#404040' : '#e9ecef'};
+          background: ${theme === "dark" ? "#2c2c2c" : "#ffffff"};
+          border-bottom: 1px solid ${theme === "dark" ? "#404040" : "#e9ecef"};
         }
 
         .search-box {
@@ -112,10 +120,10 @@ const NoChatSelected = () => {
         .search-input {
           width: 100%;
           padding: 0.875rem 1rem 0.875rem 3rem;
-          border: 2px solid ${theme === 'dark' ? '#404040' : '#e9ecef'};
+          border: 2px solid ${theme === "dark" ? "#404040" : "#e9ecef"};
           border-radius: 25px;
-          background: ${theme === 'dark' ? '#404040' : '#f8f9fa'};
-          color: ${theme === 'dark' ? '#ffffff' : '#212529'};
+          background: ${theme === "dark" ? "#404040" : "#f8f9fa"};
+          color: ${theme === "dark" ? "#ffffff" : "#212529"};
           font-size: 1rem;
           transition: all 0.3s ease;
         }
@@ -131,7 +139,7 @@ const NoChatSelected = () => {
           left: 1rem;
           top: 50%;
           transform: translateY(-50%);
-          color: ${theme === 'dark' ? '#888888' : '#6c757d'};
+          color: ${theme === "dark" ? "#888888" : "#6c757d"};
           font-size: 1.2rem;
         }
 
@@ -152,8 +160,8 @@ const NoChatSelected = () => {
 
         .tab {
           padding: 0.75rem 1.5rem;
-          background: ${theme === 'dark' ? '#404040' : '#e9ecef'};
-          color: ${theme === 'dark' ? '#b8b8b8' : '#6c757d'};
+          background: ${theme === "dark" ? "#404040" : "#e9ecef"};
+          color: ${theme === "dark" ? "#b8b8b8" : "#6c757d"};
           border: none;
           border-radius: 25px;
           cursor: pointer;
@@ -176,8 +184,8 @@ const NoChatSelected = () => {
         }
 
         .user-card {
-          background: ${theme === 'dark' ? '#2c2c2c' : '#ffffff'};
-          border: 1px solid ${theme === 'dark' ? '#404040' : '#e9ecef'};
+          background: ${theme === "dark" ? "#2c2c2c" : "#ffffff"};
+          border: 1px solid ${theme === "dark" ? "#404040" : "#e9ecef"};
           border-radius: 12px;
           padding: 1.5rem;
           cursor: pointer;
@@ -212,24 +220,24 @@ const NoChatSelected = () => {
           width: 16px;
           height: 16px;
           border-radius: 50%;
-          border: 2px solid ${theme === 'dark' ? '#2c2c2c' : '#ffffff'};
+          border: 2px solid ${theme === "dark" ? "#2c2c2c" : "#ffffff"};
         }
 
         .user-name {
           font-size: 1.1rem;
           font-weight: 600;
-          color: ${theme === 'dark' ? '#ffffff' : '#212529'};
+          color: ${theme === "dark" ? "#ffffff" : "#212529"};
           margin-bottom: 0.25rem;
         }
 
         .user-status {
           font-size: 0.85rem;
-          color: ${theme === 'dark' ? '#b8b8b8' : '#6c757d'};
+          color: ${theme === "dark" ? "#b8b8b8" : "#6c757d"};
         }
 
         .tips-section {
-          background: ${theme === 'dark' ? '#2c2c2c' : '#ffffff'};
-          border: 1px solid ${theme === 'dark' ? '#404040' : '#e9ecef'};
+          background: ${theme === "dark" ? "#2c2c2c" : "#ffffff"};
+          border: 1px solid ${theme === "dark" ? "#404040" : "#e9ecef"};
           border-radius: 12px;
           padding: 1.5rem;
           text-align: center;
@@ -238,7 +246,7 @@ const NoChatSelected = () => {
 
         .tip-content {
           font-size: 1rem;
-          color: ${theme === 'dark' ? '#e1e1e1' : '#495057'};
+          color: ${theme === "dark" ? "#e1e1e1" : "#495057"};
           animation: fadeInUp 0.5s ease;
         }
 
@@ -261,8 +269,8 @@ const NoChatSelected = () => {
         }
 
         .stat-card {
-          background: ${theme === 'dark' ? '#2c2c2c' : '#ffffff'};
-          border: 1px solid ${theme === 'dark' ? '#404040' : '#e9ecef'};
+          background: ${theme === "dark" ? "#2c2c2c" : "#ffffff"};
+          border: 1px solid ${theme === "dark" ? "#404040" : "#e9ecef"};
           border-radius: 12px;
           padding: 1.5rem;
           text-align: center;
@@ -277,13 +285,13 @@ const NoChatSelected = () => {
 
         .stat-label {
           font-size: 0.9rem;
-          color: ${theme === 'dark' ? '#b8b8b8' : '#6c757d'};
+          color: ${theme === "dark" ? "#b8b8b8" : "#6c757d"};
         }
 
         .empty-state {
           text-align: center;
           padding: 3rem 1rem;
-          color: ${theme === 'dark' ? '#888888' : '#6c757d'};
+          color: ${theme === "dark" ? "#888888" : "#6c757d"};
         }
 
         .empty-icon {
@@ -296,28 +304,28 @@ const NoChatSelected = () => {
           .content-section {
             padding: 1rem;
           }
-          
+
           .search-section {
             padding: 1rem;
           }
-          
+
           .header-section {
             padding: 1.5rem 1rem;
           }
-          
+
           .welcome-message h2 {
             font-size: 1.5rem;
           }
-          
+
           .users-grid {
             grid-template-columns: 1fr;
           }
-          
+
           .tabs {
             flex-wrap: wrap;
             gap: 0.5rem;
           }
-          
+
           .tab {
             padding: 0.5rem 1rem;
             font-size: 0.9rem;
@@ -347,21 +355,21 @@ const NoChatSelected = () => {
 
       <div className="content-section">
         <div className="tabs">
-          <button 
-            className={`tab ${selectedTab === 'recent' ? 'active' : ''}`}
-            onClick={() => setSelectedTab('recent')}
+          <button
+            className={`tab ${selectedTab === "recent" ? "active" : ""}`}
+            onClick={() => setSelectedTab("recent")}
           >
             Recent Chats
           </button>
-          <button 
-            className={`tab ${selectedTab === 'suggested' ? 'active' : ''}`}
-            onClick={() => setSelectedTab('suggested')}
+          <button
+            className={`tab ${selectedTab === "suggested" ? "active" : ""}`}
+            onClick={() => setSelectedTab("suggested")}
           >
             Suggested
           </button>
-          <button 
-            className={`tab ${selectedTab === 'all' ? 'active' : ''}`}
-            onClick={() => setSelectedTab('all')}
+          <button
+            className={`tab ${selectedTab === "all" ? "active" : ""}`}
+            onClick={() => setSelectedTab("all")}
           >
             All Contacts
           </button>
@@ -369,7 +377,9 @@ const NoChatSelected = () => {
 
         <div className="stats-section">
           <div className="stat-card">
-            <div className="stat-number">{users.filter(u => u.status === 'online').length}</div>
+            <div className="stat-number">
+              {users.filter((u) => u.status === "online").length}
+            </div>
             <div className="stat-label">Online Friends</div>
           </div>
           <div className="stat-card">
@@ -382,7 +392,7 @@ const NoChatSelected = () => {
           </div>
         </div>
 
-        {selectedTab === 'recent' && (
+        {selectedTab === "recent" && (
           <div className="users-grid">
             {recentChats.length > 0 ? (
               recentChats.map((user) => (
@@ -393,7 +403,7 @@ const NoChatSelected = () => {
                 >
                   <div className="user-avatar">
                     {user.avatar}
-                    <div 
+                    <div
                       className="status-badge"
                       style={{ backgroundColor: getStatusColor(user.status) }}
                     />
@@ -411,7 +421,7 @@ const NoChatSelected = () => {
           </div>
         )}
 
-        {selectedTab === 'suggested' && (
+        {selectedTab === "suggested" && (
           <div className="users-grid">
             {suggestedUsers.map((user) => (
               <div
@@ -421,7 +431,7 @@ const NoChatSelected = () => {
               >
                 <div className="user-avatar">
                   {user.avatar}
-                  <div 
+                  <div
                     className="status-badge"
                     style={{ backgroundColor: getStatusColor(user.status) }}
                   />
@@ -433,7 +443,7 @@ const NoChatSelected = () => {
           </div>
         )}
 
-        {selectedTab === 'all' && (
+        {selectedTab === "all" && (
           <div className="users-grid">
             {filteredUsers.length > 0 ? (
               filteredUsers.map((user) => (
@@ -444,7 +454,7 @@ const NoChatSelected = () => {
                 >
                   <div className="user-avatar">
                     {user.avatar}
-                    <div 
+                    <div
                       className="status-badge"
                       style={{ backgroundColor: getStatusColor(user.status) }}
                     />

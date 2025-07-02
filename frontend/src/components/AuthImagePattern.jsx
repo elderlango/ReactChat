@@ -1,9 +1,9 @@
-import React from 'react';
+import React from "react";
 
-const AuthImagePattern = ({ 
-  title = "Welcome to ReactChat", 
+const AuthImagePattern = ({
+  title = "Welcome to ReactChat",
   subtitle = "Connect with friends and family instantly",
-  className = "" 
+  className = "",
 }) => {
   const patterns = [
     { icon: "💬", delay: "0s" },
@@ -78,7 +78,7 @@ const AuthImagePattern = ({
           font-size: 3rem;
           font-weight: bold;
           margin-bottom: 1rem;
-          text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+          text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
           animation: slideInDown 1s ease-out;
         }
 
@@ -148,16 +148,16 @@ const AuthImagePattern = ({
           .title {
             font-size: 2rem;
           }
-          
+
           .subtitle {
             font-size: 1rem;
           }
-          
+
           .pattern-grid {
             grid-template-columns: repeat(4, 1fr);
             grid-template-rows: repeat(8, 1fr);
           }
-          
+
           .pattern-item {
             font-size: 1.5rem;
           }
@@ -166,12 +166,12 @@ const AuthImagePattern = ({
 
       <div className="pattern-grid">
         {Array.from({ length: 48 }, (_, i) => (
-          <div 
+          <div
             key={i}
             className="pattern-item"
-            style={{ 
-              '--delay': `${(i * 0.1) % 4}s`,
-              animationDelay: `${(i * 0.1) % 4}s`
+            style={{
+              "--delay": `${(i * 0.1) % 4}s`,
+              animationDelay: `${(i * 0.1) % 4}s`,
             }}
           >
             {patterns[i % patterns.length].icon}
@@ -182,7 +182,7 @@ const AuthImagePattern = ({
       <div className="content">
         <h1 className="title">{title}</h1>
         <p className="subtitle">{subtitle}</p>
-        
+
         <div className="features">
           <div className="feature">🔒 Secure Messaging</div>
           <div className="feature">⚡ Real-time Chat</div>
