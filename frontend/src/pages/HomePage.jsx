@@ -6,6 +6,8 @@ import Sidebar from "../components/Sidebar";
 import NoChatSelected from "../components/NoChatSelected";
 import ChatContainer from "../components/ChatContainer";
 
+// commit #25 - Tony
+
 const HomePage = () => {
   const { selectedUser } = useChatStore();
   const [isSidebarOpen, setSidebarOpen] = useState(true);
